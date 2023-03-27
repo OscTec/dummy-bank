@@ -1,15 +1,26 @@
-import reactImg from '../assets/react.svg'
+import { ReactNode } from "react";
+import { TbCircleChevronRight } from 'react-icons/tb';
 
-const Card = () => {
+interface Props {
+  title: string
+  description: string
+  icon: ReactNode
+}
+
+const Card = ({ title, description, icon }: Props) => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
-      <figure><img src={reactImg} alt="Shoes" /></figure>
-      <div className="card-body">
-        <h2 className="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
+      <div className="flex">
+        <figure className="pl-10">
+          {icon}
+        </figure>
+        <div className="card-body text-left">
+          <h2 className="card-title">{title}</h2>
+          <p>{description}</p>
         </div>
+        <figure className="">
+          <TbCircleChevronRight size={32} className="ml-auto mr-10" />
+        </figure>
       </div>
     </div>
   )
