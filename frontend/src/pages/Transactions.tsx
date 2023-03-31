@@ -1,3 +1,4 @@
+import BackButton from '../components/BackButton'
 import TransactionTable from '../components/TransactionTable'
 
 const dummyTransactions = [
@@ -15,7 +16,10 @@ const dummyTransactions = [
 const Transactions = () => {
   return (
     <div>
-      <h1>Transactions</h1>
+      <div className="flex items-center">
+        <BackButton />
+        <h1 className="text-xl ml-3">Transactions</h1>
+      </div>
       <TransactionTable transactions={dummyTransactions} />
     </div>
   )

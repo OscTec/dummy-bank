@@ -6,6 +6,7 @@ import { GiCash } from 'react-icons/gi';
 
 import { AccountType } from '../types/AccountType';
 import Card from './Card';
+import { Link } from 'react-router-dom';
 
 
 interface Props {
@@ -23,7 +24,9 @@ const accountMap: { [key: number]: { title: string, icon: ReactNode } } = {
 
 const Account = ({ accountType, balance }: Props) => {
   return (
-    <Card {...accountMap[accountType]} description={`£${balance.toString()}`} />
+    <Link to="/transactions">
+      <Card {...accountMap[accountType]} description={`£${balance.toString()}`} />
+    </Link>
   )
 }
 
