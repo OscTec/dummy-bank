@@ -1,26 +1,17 @@
 import BackButton from '../components/BackButton'
 import TransactionTable from '../components/TransactionTable'
-
-const dummyTransactions = [
-  {
-    id: Math.random().toString(36).substr(2, 9),
-    name: 'YouTube Premium',
-    amount: -12.99,
-    newBalance: 83.01,
-    category: 'Entertainment',
-    date: '27/03/22',
-  },
-]
-
+import useTransactions from '../hooks/useTransactions'
 
 const Transactions = () => {
+  const { data, error, isLoading } = useTransactions()
+
   return (
     <div>
-      <div className="flex items-center">
+      <div className="flex items-center back bg-gray-200">
         <BackButton />
         <h1 className="text-xl ml-3">Transactions</h1>
       </div>
-      <TransactionTable transactions={dummyTransactions} />
+      <TransactionTable transactions={data} isLoading={isLoading} />
     </div>
   )
 }
