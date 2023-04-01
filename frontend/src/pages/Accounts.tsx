@@ -1,14 +1,17 @@
 import Account from "../components/Account";
-import AccountType from "../types/AccountType";
+import AccountSkeleton from "../components/AccountSkeleton";
+import useAccounts from "../hooks/useAccounts";
 
 const Accounts = () => {
+  const { data, error, isLoading } = useAccounts()
+
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 place-items-center pt-4">
-      <Account accountType={AccountType.Current} balance={300} />
-      <Account accountType={AccountType.Credit} balance={200} />
-      <Account accountType={AccountType.Savings} balance={5000} />
-      <Account accountType={AccountType.Cash} balance={1000} />
-      <Account accountType={AccountType.Stocks} balance={1000} />
+      {true && [1, 2].map((i) => <AccountSkeleton key={i} />)}
+      {error && <div>Something went wrong</div>}
+      {data && data.map(account => (
+        <Account key={account.id} accountType={account.type} balance={account.balance} />
+      ))}
     </div>
   )
 }

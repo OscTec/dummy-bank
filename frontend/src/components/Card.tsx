@@ -18,7 +18,7 @@ const Card = ({ title, description, icon }: Props) => {
           <h2 className="card-title">{title}</h2>
           <p>{description}</p>
         </div>
-        <figure className="">
+        <figure>
           <TbCircleChevronRight size={32} className="ml-auto mr-10" />
         </figure>
       </div>
