@@ -6,6 +6,7 @@ import App from './App';
 import './index.css';
 import Accounts from './pages/Accounts';
 import Transactions from './pages/Transactions';
+import Transfer from './pages/Transfer';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         path: "/transactions",
         element: <Transactions />,
       },
+      {
+        path: "/transfer",
+        element: <Transfer />,
+      }
     ],
   },
 ]);

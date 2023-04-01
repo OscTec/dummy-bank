@@ -98,7 +98,6 @@ const TransactionTable = ({ transactions, isLoading }: Props) => {
             : transactions &&
             transactions.length > 0 &&
             transactions.map((transaction) => <TransactionRow key={transaction.id} transaction={transaction} />)}
-          {/* {transactions.map((transaction) => <TransactionRow key={transaction.id} transaction={transaction} />)} */}
         </tbody>
         <tfoot>
           <tr>
