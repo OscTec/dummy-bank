@@ -1,10 +1,6 @@
 import { Link } from "react-router-dom";
 
-interface Notification {
-  id: string;
-  title: string;
-  description: string;
-}
+import Notification from "../types/Notification";
 
 interface Props {
   notifications: Notification[]

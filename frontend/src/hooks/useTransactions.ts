@@ -1,6 +1,6 @@
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
-import { Transaction } from "../components/TransactionTable";
+import Transaction from "../types/Transaction";
 
 interface FetchResponse<T> {
   count: number;

@@ -1,5 +1,5 @@
 import Account from "../components/Account";
-import { AccountType } from "../types/AccountType";
+import AccountType from "../types/AccountType";
 
 const Accounts = () => {
   return (

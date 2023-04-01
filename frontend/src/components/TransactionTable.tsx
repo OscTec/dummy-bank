@@ -1,14 +1,7 @@
 import { AiOutlineShopping } from 'react-icons/ai'
 import { BiMovie } from 'react-icons/bi'
 
-export interface Transaction {
-  id: string
-  name: string
-  amount: number
-  newBalance: number
-  category: string
-  date: string
-}
+import Transaction from '../types/Transaction'
 
 interface Props {
   transactions: Transaction[]

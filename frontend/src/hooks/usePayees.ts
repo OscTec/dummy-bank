@@ -1,12 +1,6 @@
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
-
-export interface Payee {
-  id: string;
-  name: string;
-  accountNumber: number;
-  sortCode: number;
-}
+import Payee from "../types/Payee";
 
 interface FetchResponse<T> {
   count: number;

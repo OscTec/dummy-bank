@@ -3,7 +3,8 @@ import { useState } from 'react';
 import { TbCircleChevronRight } from 'react-icons/tb';
 
 import tick from '../assets/tick.json';
-import usePayees, { Payee } from '../hooks/usePayees';
+import usePayees from '../hooks/usePayees';
+import Payee from "../types/Payee";
 
 const newPayee = () => {
   return (

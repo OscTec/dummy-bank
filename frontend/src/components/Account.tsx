@@ -4,9 +4,9 @@ import { BsCash, BsCreditCard } from 'react-icons/bs';
 import { CiVault } from 'react-icons/ci';
 import { GiCash } from 'react-icons/gi';
 
-import { AccountType } from '../types/AccountType';
-import Card from './Card';
 import { Link } from 'react-router-dom';
+import AccountType from '../types/AccountType';
+import Card from './Card';
 
 
 interface Props {
