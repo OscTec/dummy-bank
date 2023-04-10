@@ -1,3 +1,4 @@
+import { FormEvent } from 'react';
 import Lottie from "lottie-react";
 import { useState } from 'react';
 import { TbCircleChevronRight } from 'react-icons/tb';
@@ -49,7 +50,16 @@ const existingPayee = (payees: Payee[], isLoading: boolean, error: string) => {
   )
 }
 
-const PayeeDetails = ({ handleSubmit, payeeType, setPayeeType, payees, isLoading, error }) => {
+interface PayeeDetailsProps {
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  payeeType: string | null;
+  setPayeeType: (payeeType: string) => void;
+  payees: Payee[];
+  isLoading: boolean;
+  error: string;
+}
+
+const PayeeDetails = ({ handleSubmit, payeeType, setPayeeType, payees, isLoading, error }: PayeeDetailsProps) => {
   return (
     <form className="form-control items-center" onSubmit={handleSubmit}>
       <div className='w-full'>
@@ -76,7 +86,7 @@ const PayeeDetails = ({ handleSubmit, payeeType, setPayeeType, payees, isLoading
 }
 
 
-const TransferDetails = ({ handleSubmit }) => {
+const TransferDetails = ({ handleSubmit }: { handleSubmit: (e: FormEvent<HTMLFormElement>) => void }) => {
   return (
     <form className="form-control items-center" onSubmit={handleSubmit}>
       <div className='w-full'>

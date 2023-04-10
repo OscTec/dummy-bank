@@ -3,9 +3,10 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 
 import * as userServices from '../services/userService';
+import ResponseError from '../types/ResponseError';
 
 const Login = () => {
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<ResponseError | null>()
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -29,7 +30,7 @@ const Login = () => {
 
   return (
     <form className='form-control p-5' onSubmit={formik.handleSubmit}>
-      {errors.message && (
+      {errors?.message && (
         <div className='alert alert-error'>
           {errors.message}
         </div>
