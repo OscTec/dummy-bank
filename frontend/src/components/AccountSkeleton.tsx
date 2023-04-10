@@ -8,12 +8,12 @@ const AccountSkeleton = () => {
           <div className="w-10 h-10 bg-base-300 rounded-full animate-pulse"></div>
         </figure>
         <div className="card-body text-left">
-          <h2 className="card-title">
+          <div className="card-title">
             <div className="w-40 h-4 bg-base-300 rounded-full animate-pulse"></div>
-          </h2>
-          <p>
+          </div>
+          <div>
             <div className="w-16 h-4 bg-base-300 rounded-full animate-pulse"></div>
-          </p>
+          </div>
         </div>
         <figure className="animate-pulse">
           <TbCircleChevronRight size={32} className="ml-auto mr-10" />

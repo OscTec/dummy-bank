@@ -17,7 +17,7 @@ const Navbar = ({ notifications }: Props) => {
           <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
             <li><Link to="/">Home</Link></li>
             <li><Link to="/transfer">Pay & Transfer</Link></li>
-            <li><a>Log Out</a></li>
+            <li><Link to="/logout">Logout</Link></li>
           </ul>
         </div>
       </div>
