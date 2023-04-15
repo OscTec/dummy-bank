@@ -4,7 +4,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import * as userServices from '../services/userService';
+import { login } from '../services/authService';
 import ResponseError from '../types/ResponseError';
 
 const schema = z.object({
@@ -20,16 +20,13 @@ const Login = () => {
   const { handleSubmit, register, formState: { errors, isValid } } = useForm<FormData>({ mode: 'all', resolver: zodResolver(schema) });
 
   const onSubmit = async (values: FieldValues) => {
-    const response = await userServices.login(values.email, values.password);
-    const body = await response.json()
-
-    if (response.status !== 200) {
-      setError({ message: body.message });
+    try {
+      await login(values.email, values.password);
+      navigate('/')
+    } catch (error) {
+      if (error instanceof Error) setError(error);
       return;
     }
-
-    localStorage.setItem('token', body);
-    navigate('/')
   }
 
   return (

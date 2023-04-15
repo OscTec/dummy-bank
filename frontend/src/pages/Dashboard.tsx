@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   return (
     <div style={{ backgroundColor: '#f2f2f2', height: '100vh' }} className="drop-shadow-2xl">
-      <Navbar notifications={[]} name={user?.name} />
+      <Navbar notifications={[]} />
       <div className="drawer drawer-mobile">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-start">

@@ -8,7 +8,7 @@ interface User {
   name: string
 }
 
-export async function register(user: User) {
+export async function register(user: User): Promise<Response> {
   const res = await fetch(apiEndpoint + "/users", {
     method: "POST",
     headers: {
@@ -19,19 +19,6 @@ export async function register(user: User) {
       email: user.email,
       password: user.password,
       name: user.name,
-    }),
-  })
-
-  return res
-}
-
-export async function login(email: string, password: string) {
-  const res = await fetch(apiEndpoint + "/logins", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", "Accept": "application/json" },
-    body: JSON.stringify({
-      email,
-      password
     }),
   })
 

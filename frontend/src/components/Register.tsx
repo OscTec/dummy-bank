@@ -29,9 +29,11 @@ const Register = () => {
       return;
     }
 
-    localStorage.setItem('token', response.headers.get("x-auth-token"));
-
-    navigate('/')
+    const jwt = response.headers.get("x-auth-token");
+    if (jwt) {
+      localStorage.setItem('token', jwt);
+      navigate('/')
+    }
   }
 
   return (
