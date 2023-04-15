@@ -1,0 +1,5 @@
+{
+  "env": "prod",
+  "env_comment": "The different routes haven't been set up yet, so this is just a placeholder",
+  "apiUrl": "https://reclulq1pl.execute-api.eu-west-1.amazonaws.com/"
+}

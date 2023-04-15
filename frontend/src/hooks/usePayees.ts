@@ -1,4 +1,3 @@
-import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import Payee from "../types/Payee";
 
@@ -51,7 +50,7 @@ const usePayees = (deps?: any) => {
           setLoading(false);
         })
         .catch((err) => {
-          if (err instanceof CanceledError) return;
+          if (err?.name === "AboutError") return;
           setError(err.message);
           setLoading(false);
         });
