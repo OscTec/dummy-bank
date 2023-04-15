@@ -1,63 +1,67 @@
 import { useState } from 'react';
-import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import { FieldValues, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 import * as userServices from '../services/userService';
 import ResponseError from '../types/ResponseError';
 
-const Login = () => {
-  const [errors, setErrors] = useState<ResponseError | null>()
-  const navigate = useNavigate();
+const schema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8, { message: 'Password must be at least 8 characters' }),
+})
 
-  const formik = useFormik({
-    initialValues: {
-      email: '',
-      password: '',
-    },
-    onSubmit: async ({ email, password }) => {
-      try {
-        const { token } = await userServices.login(email, password);
-        localStorage.setItem('token', token);
-        navigate('/')
-      } catch (error) {
-        // TODO: Handle error properly, the backend needs fixing
-        if (error) {
-          setErrors({ message: 'Invalid email or password' })
-        }
-      }
-    },
-  });
+type FormData = z.infer<typeof schema>
+
+const Login = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState<ResponseError | null>(null);
+  const { handleSubmit, register, formState: { errors, isValid } } = useForm<FormData>({ mode: 'all', resolver: zodResolver(schema) });
+
+  const onSubmit = async (values: FieldValues) => {
+    const response = await userServices.login(values.email, values.password);
+    const body = await response.json()
+
+    if (response.status !== 200) {
+      setError({ message: body.message });
+      return;
+    }
+
+    localStorage.setItem('token', body);
+    navigate('/')
+  }
 
   return (
-    <form className='form-control p-5' onSubmit={formik.handleSubmit}>
-      {errors?.message && (
+    <form className='form-control p-5' onSubmit={handleSubmit(onSubmit)}>
+      {error?.message && (
         <div className='alert alert-error'>
-          {errors.message}
+          {error.message}
         </div>
       )}
       <label className='label' htmlFor="email">
         <span className='label-text'>Email</span>
       </label>
       <input
+        {...register('email')}
         className='input input-bordered'
         id="email"
         name="email"
         type="email"
-        onChange={formik.handleChange}
-        value={formik.values.email}
       />
+      {errors.email && <p className='mt-2 text-error'>{errors.email.message}</p>}
       <label className='label' htmlFor="password">
         <span className='label-text'>Password</span>
       </label>
       <input
+        {...register('password')}
         className='input input-bordered'
         id="password"
         name="password"
         type="password"
-        onChange={formik.handleChange}
-        value={formik.values.password}
       />
-      <button className='btn btn-success mt-5' type="submit">Log In</button>
+      {errors.password && <p className='mt-2 text-error'>{errors.password.message}</p>}
+      <button disabled={!isValid} className='btn btn-success mt-5' type="submit">Log In</button>
     </form>
   );
 }

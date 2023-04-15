@@ -1,5 +1,5 @@
 export default interface Token {
-  name?: string;
+  name: string;
   email: string;
   iat: number;
 }

@@ -22,8 +22,7 @@ export async function register(user: User) {
     }),
   })
 
-  const json = await res.json()
-  return json
+  return res
 }
 
 export async function login(email: string, password: string) {
@@ -36,6 +35,5 @@ export async function login(email: string, password: string) {
     }),
   })
 
-  const json = await res.json()
-  return json
+  return res
 }

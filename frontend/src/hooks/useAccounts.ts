@@ -1,4 +1,3 @@
-import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import Account from "../types/Account";
 import AccountType from "../types/AccountType";
@@ -93,7 +92,7 @@ const useAccounts = (deps?: any) => {
           setLoading(false);
         })
         .catch((err) => {
-          if (err instanceof CanceledError) return;
+          if (err?.name === "AboutError") return;
           setError(err.message);
           setLoading(false);
         });
