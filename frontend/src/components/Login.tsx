@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { FieldValues, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -15,6 +15,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>
 
 const Login = () => {
+  const location = useLocation();
   const navigate = useNavigate();
   const [error, setError] = useState<ResponseError | null>(null);
   const { handleSubmit, register, formState: { errors, isValid } } = useForm<FormData>({ mode: 'all', resolver: zodResolver(schema) });
@@ -22,7 +23,7 @@ const Login = () => {
   const onSubmit = async (values: FieldValues) => {
     try {
       await login(values.email, values.password);
-      navigate('/')
+      navigate(location.state?.from.pathname ?? '/')
     } catch (error) {
       if (error instanceof Error) setError(error);
       return;
