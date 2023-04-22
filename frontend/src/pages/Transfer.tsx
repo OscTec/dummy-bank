@@ -39,13 +39,20 @@ const existingPayee = (payees: Payee[], isLoading: boolean, error: string) => {
         <span className="label-text">Payee name</span>
       </label>
       {error && <p className="text-red-500">{error}</p>}
-      <select id="payee" className="select select-bordered w-full max-w-xs">
+      <select id="payee" className="select select-bordered w-full max-w-xs" defaultValue="" onChange={(e) => console.log(e.target.value)}>
+        <option value="" disabled>Select Payee</option>
+        {isLoading ?
+          <option value="" disabled>Loading...</option> :
+          payees.map((payee) => <option key={payee.id} value={payee.name}>{payee.name}</option>)
+        }
+      </select>
+      {/* <select id="payee" className="select select-bordered w-full max-w-xs">
         <option disabled selected>Select Payee</option>
         {isLoading ?
           <option>Loading...</option> :
           payees.map((payee) => <option key={payee.id}>{payee.name}</option>)
         }
-      </select>
+      </select> */}
     </div>
   )
 }
@@ -66,11 +73,16 @@ const PayeeDetails = ({ handleSubmit, payeeType, setPayeeType, payees, isLoading
         <label htmlFor="payeeType" className="label">
           <span className="label-text">New or existing Payee?</span>
         </label>
-        <select id="payeeType" className="select select-bordered w-full max-w-xs" onChange={(e) => setPayeeType(e.target.value)}>
+        <select id="payeeType" className="select select-bordered w-full max-w-xs" onChange={(e) => setPayeeType(e.target.value)} defaultValue="">
+          <option disabled value="">New or existing Payee?</option>
+          <option value="new">New</option>
+          <option value="existing">Existing</option>
+        </select>
+        {/* <select id="payeeType" className="select select-bordered w-full max-w-xs" onChange={(e) => setPayeeType(e.target.value)}>
           <option disabled selected>New or existing Payee?</option>
           <option>New</option>
           <option>Existing</option>
-        </select>
+        </select> */}
       </div>
       {payeeType === 'New' ? newPayee() : payeeType === 'Existing' ? existingPayee(payees, isLoading, error) : null}
       <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold mt-4 py-2 px-4 rounded-full">

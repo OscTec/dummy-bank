@@ -3,6 +3,7 @@ import { z } from "zod";
 import { UserSchema } from "./user";
 
 const LoginSchema = UserSchema.partial({
+  id: true,
   name: true
 })
 
