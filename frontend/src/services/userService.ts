@@ -1,6 +1,6 @@
-import { apiUrl, env } from "../config.json"
+import { apiUrl } from "../config.json"
 
-const apiEndpoint = apiUrl + env
+const apiEndpoint = apiUrl
 
 interface User {
   email: string

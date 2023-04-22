@@ -9,6 +9,7 @@ import Transactions from './pages/Transactions';
 import Transfer from './pages/Transfer';
 import Dashboard from './pages/Dashboard';
 import Logout from './components/Logout';
+import ProtectedRoute from './components/common/ProtectedRoute';
 
 import './index.css';
 
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/",
-        element: <Dashboard />,
+        element: <ProtectedRoute element={Dashboard} />,
         children: [
           {
             path: "/",
