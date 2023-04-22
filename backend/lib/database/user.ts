@@ -2,6 +2,7 @@ import {
   DynamoDBClient,
   GetItemCommand,
   PutItemCommand,
+  QueryCommand
 } from "@aws-sdk/client-dynamodb";
 import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
@@ -13,17 +14,20 @@ const client = new DynamoDBClient({});
 export const get = async (email: string): Promise<User | null> => {
   const params = {
     TableName: getConfig("userTable"),
-    Key: marshall({ email }),
+    IndexName: "emailIndex",
+    KeyConditionExpression: "email = :email",
+    ExpressionAttributeValues: {
+      ":email": { S: email },
+    },
   };
 
   try {
-    const res = await client.send(new GetItemCommand(params));
-
-    if (!res.Item) {
+    const response = await client.send(new QueryCommand(params));
+    if (!response.Items) {
       return null;
     }
 
-    const user = unmarshall(res.Item) as User;
+    const user = unmarshall(response.Items[0]) as User;
 
     return user;
   } catch (error) {

@@ -1,14 +1,12 @@
-import { APIGatewayProxyEvent, Context, APIGatewayProxyResult } from 'aws-lambda'
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda'
 import * as bcrypt from "bcrypt";
 import { pick } from "lodash";
+import { nanoid } from "nanoid";
 
 import { get as getUser, post as createUser } from "../database/user";
 import { generateErrorResponse, generateSuccessResponse } from "../helpers/generateHttpResponse";
 import { generateToken } from "../helpers/jwt";
 import { validate } from "../schema/user";
-
-const client = new DynamoDBClient({});
 
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   if (!event.body) {
@@ -19,6 +17,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
   const { name, email, password } = JSON.parse(event.body);
   const user = {
+    id: nanoid(),
     email,
     name,
     password,
@@ -60,7 +59,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     const token = generateToken(user);
 
     return generateSuccessResponse({
-      ...pick(user, ["name", "email"]),
+      ...pick(user, ["id", "name", "email"]),
       token,
     },
     200,

@@ -39,11 +39,11 @@ const existingPayee = (payees: Payee[], isLoading: boolean, error: string) => {
         <span className="label-text">Payee name</span>
       </label>
       {error && <p className="text-red-500">{error}</p>}
-      <select id="payee" className="select select-bordered w-full max-w-xs">
-        <option disabled selected>Select Payee</option>
+      <select id="payee" className="select select-bordered w-full max-w-xs" defaultValue="" onChange={(e) => console.log(e.target.value)}>
+        <option value="" disabled>Select Payee</option>
         {isLoading ?
-          <option>Loading...</option> :
-          payees.map((payee) => <option key={payee.id}>{payee.name}</option>)
+          <option value="" disabled>Loading...</option> :
+          payees.map((payee) => <option key={payee.id} value={payee.name}>{payee.name}</option>)
         }
       </select>
     </div>
@@ -66,10 +66,10 @@ const PayeeDetails = ({ handleSubmit, payeeType, setPayeeType, payees, isLoading
         <label htmlFor="payeeType" className="label">
           <span className="label-text">New or existing Payee?</span>
         </label>
-        <select id="payeeType" className="select select-bordered w-full max-w-xs" onChange={(e) => setPayeeType(e.target.value)}>
-          <option disabled selected>New or existing Payee?</option>
-          <option>New</option>
-          <option>Existing</option>
+        <select id="payeeType" className="select select-bordered w-full max-w-xs" onChange={(e) => setPayeeType(e.target.value)} defaultValue="">
+          <option disabled value="">New or existing Payee?</option>
+          <option value="new">New</option>
+          <option value="existing">Existing</option>
         </select>
       </div>
       {payeeType === 'New' ? newPayee() : payeeType === 'Existing' ? existingPayee(payees, isLoading, error) : null}
@@ -133,7 +133,6 @@ const Sending = () => {
 
 const Transfer = () => {
   const [payeeType, setPayeeType] = useState<null | string>(null)
-  // const [payee, setPayee] = useState<null | string>(null)
   const { data: payees, isLoading, error } = usePayees()
   const [showDetails, setShowDetails] = useState(false)
   const [sending, setSending] = useState<null | Boolean>(null)

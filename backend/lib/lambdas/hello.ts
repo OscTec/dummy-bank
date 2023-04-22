@@ -1,7 +1,7 @@
-import { generateHttpResponse } from "../helpers/generateHttpResponse";
+import { generateSuccessResponse } from "../helpers/generateHttpResponse";
 
 export const handler = async (event: any = {}): Promise<any> => {
-  return generateHttpResponse(200, {
+  return generateSuccessResponse({
     message: "Hello World!",
     input: event,
   });
