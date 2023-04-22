@@ -46,13 +46,6 @@ const existingPayee = (payees: Payee[], isLoading: boolean, error: string) => {
           payees.map((payee) => <option key={payee.id} value={payee.name}>{payee.name}</option>)
         }
       </select>
-      {/* <select id="payee" className="select select-bordered w-full max-w-xs">
-        <option disabled selected>Select Payee</option>
-        {isLoading ?
-          <option>Loading...</option> :
-          payees.map((payee) => <option key={payee.id}>{payee.name}</option>)
-        }
-      </select> */}
     </div>
   )
 }
@@ -78,11 +71,6 @@ const PayeeDetails = ({ handleSubmit, payeeType, setPayeeType, payees, isLoading
           <option value="new">New</option>
           <option value="existing">Existing</option>
         </select>
-        {/* <select id="payeeType" className="select select-bordered w-full max-w-xs" onChange={(e) => setPayeeType(e.target.value)}>
-          <option disabled selected>New or existing Payee?</option>
-          <option>New</option>
-          <option>Existing</option>
-        </select> */}
       </div>
       {payeeType === 'New' ? newPayee() : payeeType === 'Existing' ? existingPayee(payees, isLoading, error) : null}
       <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold mt-4 py-2 px-4 rounded-full">
@@ -145,7 +133,6 @@ const Sending = () => {
 
 const Transfer = () => {
   const [payeeType, setPayeeType] = useState<null | string>(null)
-  // const [payee, setPayee] = useState<null | string>(null)
   const { data: payees, isLoading, error } = usePayees()
   const [showDetails, setShowDetails] = useState(false)
   const [sending, setSending] = useState<null | Boolean>(null)

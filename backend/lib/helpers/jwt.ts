@@ -9,7 +9,6 @@ interface DecodedToken {
   iat: number;
 }
 
-
 export const generateToken = (user: User) => {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET not defined");
