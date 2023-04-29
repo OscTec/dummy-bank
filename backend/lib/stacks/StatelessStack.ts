@@ -113,7 +113,7 @@ export class StatelessStack extends NestedStack {
     transferMoneyLambda.addToRolePolicy(
       new PolicyStatement({
         effect: Effect.ALLOW,
-        actions: ["dynamodb:UpdateItem", "dynamodb:GetItem", "dynamodb:Query"],
+        actions: ["dynamodb:GetItem", "dynamodb:Query", "dynamodb:UpdateItem", "dynamodb:PutItem"],
         resources: ["*"],
       })
     );
