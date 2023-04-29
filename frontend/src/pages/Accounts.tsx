@@ -2,7 +2,7 @@ import Account from "../components/Account";
 import AccountSkeleton from "../components/AccountSkeleton";
 import useAccounts from "../hooks/useAccounts";
 
-const Accounts = () => {
+const Accounts: React.FC = () => {
   const { data, error, isLoading } = useAccounts()
 
   return (

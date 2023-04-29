@@ -19,7 +19,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-const Register = () => {
+const Register: React.FC = () => {
   const navigate = useNavigate();
   const { handleSubmit, register, formState: { errors, isValid } } = useForm<FormData>({ mode: 'all', resolver: zodResolver(schema) });
 

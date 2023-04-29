@@ -5,7 +5,7 @@ import jwtDecode from "jwt-decode";
 import Navbar from "../components/Navbar";
 import Token from "../types/Token";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   const [user, setUser] = useState<Token | null>(null)
 
   useEffect(() => {
@@ -22,7 +22,6 @@ const Dashboard = () => {
       <div className="drawer drawer-mobile">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-start">
-          {/* <label htmlFor="my-drawer" className="btn btn-primary drawer-button">Open drawer</label> */}
           <Outlet />
         </div>
         <div className="drawer-side">

@@ -6,7 +6,7 @@ interface Props {
   notifications: Notification[]
 }
 
-const Navbar = ({ notifications }: Props) => {
+const Navbar: React.FC<Props> = ({ notifications }) => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-none">

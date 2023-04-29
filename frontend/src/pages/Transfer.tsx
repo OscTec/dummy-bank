@@ -131,7 +131,7 @@ const Sending = () => {
   )
 }
 
-const Transfer = () => {
+const Transfer: React.FC = () => {
   const [payeeType, setPayeeType] = useState<null | string>(null)
   const { data: payees, isLoading, error } = usePayees()
   const [showDetails, setShowDetails] = useState(false)

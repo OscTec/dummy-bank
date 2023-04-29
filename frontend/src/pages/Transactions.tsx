@@ -1,8 +1,8 @@
 import BackButton from '../components/BackButton'
-import TransactionTable from '../components/TransactionTable'
+import TransactionTable from '../components/TransactionTable/TransactionTable'
 import useTransactions from '../hooks/useTransactions'
 
-const Transactions = () => {
+const Transactions: React.FC = () => {
   const { data, error, isLoading } = useTransactions()
 
   return (

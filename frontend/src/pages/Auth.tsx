@@ -3,9 +3,14 @@ import { useState } from "react"
 import Register from "../components/Register"
 import Login from "../components/Login"
 
-const Auth = () => {
+const Auth: React.FC = () => {
   const [isLogin, setIsLogin] = useState(false)
   const [isRegister, setIsRegister] = useState(false)
+
+  const goBack = () => {
+    setIsLogin(false)
+    setIsRegister(false)
+  }
 
   return (
     <div className="flex justify-center p-10">
@@ -25,7 +30,7 @@ const Auth = () => {
           isLogin && (
             <>
               <Login />
-              <button onClick={() => setIsLogin(false)} className="btn btn-link">Back</button>
+              <button onClick={() => goBack()} className="btn btn-link">Back</button>
             </>
           )
         }
@@ -33,7 +38,7 @@ const Auth = () => {
           isRegister && (
             <>
               <Register />
-              <button onClick={() => setIsRegister(false)} className="btn btn-link">Back</button>
+              <button onClick={() => goBack()} className="btn btn-link">Back</button>
             </>
           )
         }
