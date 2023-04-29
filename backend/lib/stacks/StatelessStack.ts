@@ -4,6 +4,7 @@ import { PolicyStatement, Effect } from "aws-cdk-lib/aws-iam";
 import { StringParameter } from "aws-cdk-lib/aws-ssm";
 import { Cors } from "aws-cdk-lib/aws-apigateway";
 import { createNodeJsFunction } from '../helpers/createNodeJsFunction';
+import { Architecture } from 'aws-cdk-lib/aws-lambda';
 
 export class StatelessStack extends NestedStack {
   
@@ -14,6 +15,7 @@ export class StatelessStack extends NestedStack {
       entry: "lib/lambdas/hello.ts",
     })
 
+    // bcrypt doen't work on ARM architecture, so we need to use X86_64
     const registerUserLambda = createNodeJsFunction(this, "registerUser", {
       entry: "lib/lambdas/registerUser.ts",
       environment: {
@@ -23,6 +25,7 @@ export class StatelessStack extends NestedStack {
           1
         ),
       },
+      architecture: Architecture.X86_64,
       bundling: {
         nodeModules: ["bcrypt"],
       },
@@ -31,6 +34,7 @@ export class StatelessStack extends NestedStack {
     // NOTE - In a real project, you would use a KMS key to encrypt the secret
     // and then use the key to decrypt it at runtime. This is just a demo and I
     // didn't want to pay $0.4 a month :D.
+    // bcrypt doen't work on ARM architecture, so we need to use X86_64
     const authUserLambda = createNodeJsFunction(this, "authUser", {
       entry: "lib/lambdas/authUser.ts",
       environment: {
@@ -40,6 +44,7 @@ export class StatelessStack extends NestedStack {
           1
         ),
       },
+      architecture: Architecture.X86_64,
       bundling: {
         nodeModules: ["bcrypt"],
       },
