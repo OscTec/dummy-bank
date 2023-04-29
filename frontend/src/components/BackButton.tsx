@@ -1,18 +1,18 @@
 import { TbCircleChevronLeft } from 'react-icons/tb'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-const BackButton = () => {
+const BackButton: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <Link to="../" className='p-2'>
+    <div className='p-2' onClick={() => navigate(-1)}>
       <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">
         <div className="flex items-center">
-          <div className="mr-2">
-            <TbCircleChevronLeft size={32} className="ml-auto" />
-          </div>
+          <TbCircleChevronLeft size={32} className="mr-2" />
           Back
         </div>
       </button>
-    </Link>
+    </div>
   )
 }
 

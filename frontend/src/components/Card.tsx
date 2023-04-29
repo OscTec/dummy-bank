@@ -1,5 +1,5 @@
-import { ReactNode } from "react";
-import { TbCircleChevronRight } from 'react-icons/tb';
+import { ReactNode } from "react"
+import { TbCircleChevronRight } from 'react-icons/tb'
 
 interface Props {
   title: string
@@ -7,7 +7,7 @@ interface Props {
   icon: ReactNode
 }
 
-const Card = ({ title, description, icon }: Props) => {
+const Card: React.FC<Props> = ({ title, description, icon }) => {
   return (
     <div className="card w-96 bg-base-100 shadow-xl">
       <div className="flex">

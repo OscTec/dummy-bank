@@ -1,6 +1,8 @@
+import React from "react"
+
 import { TbCircleChevronRight } from "react-icons/tb"
 
-const AccountSkeleton = () => {
+const AccountSkeleton: React.FC = () => {
   return (
     <div className="card h-32 w-96 bg-base-100 shadow-xl justify-center">
       <div className="flex">
@@ -23,4 +25,4 @@ const AccountSkeleton = () => {
   )
 }
 
-export default AccountSkeleton
+export default React.memo(AccountSkeleton)

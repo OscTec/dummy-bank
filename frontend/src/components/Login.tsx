@@ -14,7 +14,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-const Login = () => {
+const Login: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [error, setError] = useState<ResponseError | null>(null);
