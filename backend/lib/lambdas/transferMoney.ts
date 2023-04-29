@@ -1,6 +1,16 @@
 import { generateErrorResponse } from "../helpers/generateHttpResponse";
 import { getAccountById, getAccountsByUserId, transferMoney } from "../database/account";
 import { verifyToken } from "../helpers/jwt";
+import { Account } from "../schema/account";
+
+const isTransferValid = (sourceAccount: Account, destinationAccount: Account, amount: number, reference: string): boolean => {
+  if (!sourceAccount || !destinationAccount || !amount || amount <= 0 || reference.length > 100) {
+    return false
+  }
+
+  return true
+}
+
 
 export const handler = async (event: any = {}): Promise<any> => {
   if (!event.headers || !event.headers["x-auth-token"]) {
@@ -25,9 +35,9 @@ export const handler = async (event: any = {}): Promise<any> => {
     }, 400);
   }
 
-  const { sourceAccountId, destinationAccountId, amount } = JSON.parse(event.body);
+  const { sourceAccountId, destinationAccountId, amount, reference } = JSON.parse(event.body);
 
-  if (!sourceAccountId || !destinationAccountId || !amount) {
+  if (!isTransferValid(sourceAccountId, destinationAccountId, amount, reference)) {
     return generateErrorResponse({
       message: "Invalid user data",
     }, 400);
@@ -35,8 +45,6 @@ export const handler = async (event: any = {}): Promise<any> => {
 
   try {
     const response = await getAccountsByUserId(decoded.id);
-    console.log("Response: ", response)
-
     const sourceAccount = response.find((account) => account.id === sourceAccountId);
 
     if (!sourceAccount) {
@@ -59,7 +67,7 @@ export const handler = async (event: any = {}): Promise<any> => {
       }, 400);
     }
 
-    const transferResponse = await transferMoney(sourceAccountId, destinationAccountId, amount);
+    const transferResponse = await transferMoney(sourceAccountId, destinationAccountId, amount, reference);
 
     if (!transferResponse) {
       return generateErrorResponse({

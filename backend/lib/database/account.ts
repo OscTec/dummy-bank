@@ -9,12 +9,16 @@ import { marshall, unmarshall } from "@aws-sdk/util-dynamodb";
 
 import { getConfig } from "../config";
 import { Account } from "../schema/account";
+import { nanoid } from "nanoid";
 
 const client = new DynamoDBClient({});
 
+const ACCOUNT_TABLE = `${getConfig("serviceName")}-${getConfig("accountTable")}`;
+const TRANSACTION_TABLE = `${getConfig("serviceName")}-${getConfig("transactionTable")}`;
+
 export const getAccountById = async (id: string): Promise<Account | null> => {
   const params = {
-    TableName: getConfig("accountTable"),
+    TableName: ACCOUNT_TABLE,
     Key: {
       id: { S: id },
     },
@@ -36,7 +40,7 @@ export const getAccountById = async (id: string): Promise<Account | null> => {
 
 export const getAccountsByUserId = async (userId: string): Promise<Account[] | []> => {
   const params = {
-    TableName: getConfig("accountTable"),
+    TableName: ACCOUNT_TABLE,
     IndexName: "userIdIndex",
     KeyConditionExpression: "userId = :userId",
     ExpressionAttributeValues: {
@@ -60,7 +64,7 @@ export const getAccountsByUserId = async (userId: string): Promise<Account[] | [
 
 export const post = async (account: Account): Promise<Account | null> => {
   const params = {
-    TableName: getConfig("accountTable"),
+    TableName: ACCOUNT_TABLE,
     Item: marshall(account),
   };
 
@@ -74,26 +78,57 @@ export const post = async (account: Account): Promise<Account | null> => {
   }
 };
 
-export const transferMoney = async (sourceAccountId: string, destinationAccountId: string, amount: number): Promise<boolean> => {
+export const transferMoney = async (senderAccountNumber: string, receiverAccountNumber: string, amount: number, reference: string): Promise<boolean> => {
+  const transactionId = nanoid()
+  const date = new Date().toISOString()
+
   const params = {
     TransactItems: [
       {
         Update: {
-          TableName: getConfig("accountTable"),
-          Key: marshall({ id: sourceAccountId }),
-          UpdateExpression: "set balance = balance - :amount",
-          ExpressionAttributeValues: marshall({ ":amount": amount }),
+          TableName: ACCOUNT_TABLE,
+          Key: marshall({ id: senderAccountNumber }),
+          UpdateExpression: "set balance = balance - :amount, updatedAt = :updatedAt",
+          ExpressionAttributeValues: marshall({ ":amount": amount, ":updatedAt": date }),
           ReturnValuesOnConditionCheckFailure: "ALL_OLD",
         },
       },
       {
         Update: {
-          TableName: getConfig("accountTable"),
-          Key: marshall({ id: destinationAccountId }),
-          UpdateExpression: "set balance = balance + :amount",
-          ExpressionAttributeValues: marshall({ ":amount": amount }),
+          TableName: ACCOUNT_TABLE,
+          Key: marshall({ id: receiverAccountNumber }),
+          UpdateExpression: "set balance = balance + :amount, updatedAt = :updatedAt",
+          ExpressionAttributeValues: marshall({ ":amount": amount, ":updatedAt": date }),
           ReturnValuesOnConditionCheckFailure: "ALL_OLD",
         },
+      },
+      {
+        Put: {
+          TableName: TRANSACTION_TABLE,
+          Item: marshall({
+            accountId: senderAccountNumber,
+            otherAccountId: receiverAccountNumber,
+            transactionId,
+            amount,
+            reference,
+            transactionType: 'DEBIT',
+            createdAt: date,
+          }),
+        }
+      },
+      {
+        Put: {
+          TableName: TRANSACTION_TABLE,
+          Item: marshall({
+            accountId: receiverAccountNumber,
+            otherAccountId: senderAccountNumber,
+            transactionId,
+            amount,
+            reference,
+            transactionType: 'CREDIT',
+            createdAt: date,
+          }),
+        }
       },
     ],
   };

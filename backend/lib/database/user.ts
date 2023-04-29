@@ -11,9 +11,11 @@ import { User } from "../schema/user";
 
 const client = new DynamoDBClient({});
 
+const USER_TABLE = `${getConfig("serviceName")}-${getConfig("userTable")}`;
+
 export const get = async (email: string): Promise<User | null> => {
   const params = {
-    TableName: getConfig("userTable"),
+    TableName: USER_TABLE,
     IndexName: "emailIndex",
     KeyConditionExpression: "email = :email",
     ExpressionAttributeValues: {
@@ -38,7 +40,7 @@ export const get = async (email: string): Promise<User | null> => {
 
 export const post = async (user: User): Promise<User | null> => {
   const params = {
-    TableName: getConfig("userTable"),
+    TableName: USER_TABLE,
     Item: marshall(user),
   };
 

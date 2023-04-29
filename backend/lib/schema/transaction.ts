@@ -1,17 +1,18 @@
 import { z } from "zod";
 
-export const AccountSchema = z.object({
-  id: z.string().uuid(),
-  fromAccountId: z.string(),
-  toAccountId: z.string(),
+export const TransactionSchema = z.object({
+  accountId: z.string().uuid(),
+  otherAccountId: z.string().uuid(),
+  transactionId: z.string().uuid(),
   amount: z.number(),
+  reference: z.string(),
   transactionType: z.string(),
-  transactionDate: z.string().datetime(),
+  createdAt: z.string().datetime(),
 })
 
-export type Account = z.infer<typeof AccountSchema>;
+export type Transaction = z.infer<typeof TransactionSchema>;
 
-export const validate = (account: Account) => {
-  const res = AccountSchema.safeParse(account);
-  return res;
+export const validate = (transaction: Transaction) => {
+  const response = TransactionSchema.safeParse(transaction);
+  return response;
 };
