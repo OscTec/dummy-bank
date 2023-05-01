@@ -3,6 +3,6 @@ export default interface Transaction {
   name: string;
   amount: number;
   newBalance: number;
-  category: string;
+  category?: string;
   date: string;
 }

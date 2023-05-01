@@ -2,25 +2,27 @@ import React from 'react'
 import { AiOutlineShopping } from 'react-icons/ai'
 import { BiMovie } from 'react-icons/bi'
 
-import Transaction from '../../types/Transaction'
+import Transaction from '../../../types/Transaction'
 
 interface Props {
   transaction: Transaction
 }
 
-const getCategoryIcon = (category: string) => {
+// NOTE - This is probably not the best place fot this function
+// but until it's used elsewhere, it's fine here
+const getCategoryIcon = (category: string = '') => {
   switch (category) {
     case 'Entertainment':
-      return <BiMovie size={32} />
+      return <BiMovie data-testid="entertainment-icon" size={32} />
     case 'Shopping':
-      return <AiOutlineShopping size={32} />
+      return <AiOutlineShopping data-testid="shopping-icon" size={32} />
     default:
-      return <BiMovie size={32} />
+      return <BiMovie data-testid="entertainment-icon" size={32} />
   }
 }
 
 const TransactionRow: React.FC<Props> = ({ transaction }) => {
-  const { name, amount, newBalance, date } = transaction
+  const { name, category, amount, newBalance, date } = transaction
 
   return (
     <tr>
@@ -28,7 +30,7 @@ const TransactionRow: React.FC<Props> = ({ transaction }) => {
         <div className="flex items-center space-x-3">
           <div className="avatar">
             <div className="flex">
-              {getCategoryIcon(name)}
+              {getCategoryIcon(category)}
             </div>
           </div>
           <div>
@@ -49,4 +51,4 @@ const TransactionRow: React.FC<Props> = ({ transaction }) => {
   )
 }
 
-export default React.memo(TransactionRow)
+export default TransactionRow
