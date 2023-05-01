@@ -2,7 +2,7 @@ import React from "react"
 
 const TransactionRowSkeleton: React.FC = () => {
   return (
-    <tr>
+    <tr data-testid="transaction-row-skeleton">
       <td>
         <div className="animate-pulse flex items-center space-x-3">
           <div className="avatar">
@@ -26,4 +26,4 @@ const TransactionRowSkeleton: React.FC = () => {
   )
 }
 
-export default React.memo(TransactionRowSkeleton)
+export default TransactionRowSkeleton

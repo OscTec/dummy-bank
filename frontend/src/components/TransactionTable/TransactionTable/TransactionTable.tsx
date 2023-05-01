@@ -1,7 +1,7 @@
-import TransactionRow from './TransactionRow'
-import TransactionRowSkeleton from './TransactionRowSkeleton'
+import TransactionRow from '../TransactionRow'
+import TransactionRowSkeleton from '../TransactionRowSkeleton'
 
-import Transaction from '../../types/Transaction'
+import Transaction from '../../../types/Transaction'
 
 interface Props {
   transactions: Transaction[]
@@ -10,7 +10,7 @@ interface Props {
 
 const TransactionTable: React.FC<Props> = ({ transactions, isLoading }) => {
   return (
-    <div className="overflow-x-auto w-full">
+    <div className="w-full">
       <table className="table table-zebra w-full">
         <thead>
           <tr>
