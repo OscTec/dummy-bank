@@ -2,10 +2,12 @@ import React from 'react'
 import { AiOutlineShopping } from 'react-icons/ai'
 import { BiMovie } from 'react-icons/bi'
 
-import Transaction from '../../../types/Transaction'
-
 interface Props {
-  transaction: Transaction
+  name: string
+  category?: string
+  amount: number
+  newBalance: number
+  date: string
 }
 
 // NOTE - This is probably not the best place fot this function
@@ -21,9 +23,7 @@ const getCategoryIcon = (category: string = '') => {
   }
 }
 
-const TransactionRow: React.FC<Props> = ({ transaction }) => {
-  const { name, category, amount, newBalance, date } = transaction
-
+const TransactionRow: React.FC<Props> = ({ name, category, amount, newBalance, date }) => {
   return (
     <tr>
       <td>
