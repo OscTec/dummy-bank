@@ -25,7 +25,7 @@ const TransactionTable: React.FC<Props> = ({ transactions, isLoading }) => {
             [1, 2, 3, 4, 5].map((i) => <TransactionRowSkeleton key={i} />)
           ) : (
             transactions?.length > 0 && transactions.map((transaction) => (
-              <TransactionRow key={transaction.id} transaction={transaction} />
+              <TransactionRow key={transaction.id} {...transaction} />
             ))
           )}
         </tbody>

@@ -46,6 +46,7 @@ const Login: React.FC = () => {
         id="email"
         name="email"
         type="email"
+        data-testid="email"
       />
       {errors.email && <p className='mt-2 text-error'>{errors.email.message}</p>}
       <label className='label' htmlFor="password">
@@ -57,6 +58,7 @@ const Login: React.FC = () => {
         id="password"
         name="password"
         type="password"
+        data-testid="password"
       />
       {errors.password && <p className='mt-2 text-error'>{errors.password.message}</p>}
       <button disabled={!isValid} className='btn btn-success mt-5' type="submit">Log In</button>
