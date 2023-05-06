@@ -15,7 +15,7 @@ describe('TransactionRow', () => {
     render(
       <table>
         <tbody>
-          <TransactionRow transaction={transaction} />
+          <TransactionRow {...transaction} />
         </tbody>
       </table>
     )
@@ -41,7 +41,7 @@ describe('TransactionRow', () => {
     render(
       <table>
         <tbody>
-          <TransactionRow transaction={transaction} />
+          <TransactionRow {...transaction} />
         </tbody>
       </table>
     )
@@ -67,7 +67,7 @@ describe('TransactionRow', () => {
     render(
       <table>
         <tbody>
-          <TransactionRow transaction={transaction} />
+          <TransactionRow {...transaction} />
         </tbody>
       </table>
     )
@@ -93,7 +93,7 @@ describe('TransactionRow', () => {
     const { getByText } = render(
       <table>
         <tbody>
-          <TransactionRow transaction={transaction} />
+          <TransactionRow {...transaction} />
         </tbody>
       </table>
     )
@@ -115,7 +115,7 @@ describe('TransactionRow', () => {
     const { getByText } = render(
       <table>
         <tbody>
-          <TransactionRow transaction={transaction} />
+          <TransactionRow {...transaction} />
         </tbody>
       </table>
     )
